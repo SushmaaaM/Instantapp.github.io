@@ -24,5 +24,26 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
+        handleAppLink();
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent){
+        super.onNewIntent(intent);
+        setIntent(intent);
+        handleAppLink();
+    }
+
+    private void handleAppLink() {
+        Intent appLinkIntent = getIntent();
+        String appLinkAction = appLinkIntent.getAction();
+        Uri appLinkData = appLinkIntent.getData();
+
+        if (Intent.ACTION_VIEW.equals(appLinkAction) && appLinkData != null) {
+            // The app link data is correct, no further action needed
+            System.out.println("App Link Data: " + appLinkData.toString());
+        } else {
+            System.out.println("No App Link Data received");
+        }
     }
 }
